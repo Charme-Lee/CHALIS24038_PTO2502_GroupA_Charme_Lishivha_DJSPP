@@ -44,9 +44,9 @@ export async function fetchSinglePodcast(id, setPodcast, setError, setLoading) {
  * Custom hook to fetch a single podcast by ID.
  *
  * @param {string} id - The ID of the podcast to fetch.
- * @param {Function} setPodcast - State setter function to update the podcast data.
  * @param {Function} setError - State setter function to update the error message (string).
  * @param {Function} setLoading - State setter function to toggle the loading state (boolean).
+ * @param {Function} setPodcast - State setter function to update the podcast data.
  */
 export function useFetchSinglePodcast(id, setPodcast, setError, setLoading) {
   useEffect(() => {
