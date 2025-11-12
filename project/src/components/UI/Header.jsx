@@ -1,4 +1,4 @@
-import styles from "./Header.css";
+import styles from "./Header.module.css";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { ThemeContext } from "../../context/ThemeContext";

@@ -1,3 +1,3 @@
 export * from "./Filters";
-export * from "./Podcasts";
+export * from "./Podcast";
 export * from "./UI";

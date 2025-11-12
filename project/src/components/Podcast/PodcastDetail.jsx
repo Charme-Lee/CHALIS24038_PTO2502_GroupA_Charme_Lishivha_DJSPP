@@ -31,7 +31,7 @@ import { AudioPlayerContext } from "../../context/AudioPlayercontext.jsx";
 import { FavouritesContext } from "../../context/FavouritesContext.jsx";
 import { formatDate } from "../../utils/formatDate.js";
 import GenreTags from "../UI/GenreTags.jsx";
-import styles from "./PodcastDetail.css";
+import styles from "./PodcastDetail.module.css";
 
 /**
  * PodcastDetail component

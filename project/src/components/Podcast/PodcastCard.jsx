@@ -27,7 +27,7 @@ formatDate to format the “updated” timestamp.
 
 import { formatDate } from "../../utils/formatDate";
 import { useNavigate } from "react-router-dom";
-import styles from "./PodcastCard.css";
+import styles from "./PodcastCard.module.css";
 import GenreTags from "../UI/GenreTags";
 
 /**

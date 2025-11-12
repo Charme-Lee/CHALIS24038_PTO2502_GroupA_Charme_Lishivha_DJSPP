@@ -1,6 +1,6 @@
 import React from "react";
 import { genres as genreMap } from "../../data";
-import styles from "./GenreTags.css";
+import styles from "./GenreTags.module.css";
 
 /**
  * GenreTags component.

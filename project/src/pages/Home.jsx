@@ -7,7 +7,7 @@ import {
   Loading,
   Error,
 } from "../components";
-import styles from "./Home.css";
+import styles from "./Home.module.css";
 import { genres } from "../data";
 import { PodcastContext } from "../context/PodcastContext";
 import { useContext } from "react";

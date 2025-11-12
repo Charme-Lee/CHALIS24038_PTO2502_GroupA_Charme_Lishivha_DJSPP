@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { AudioPlayerContext } from "../../context/AudioPlayercontext";
-import styles from "./AudioPlayerBar.css";
+import styles from "../UI/AudioPlayerBar.module.css";
 
 // This component renders a custom audio player bar that shows the currently playing track, its progress, and playback controls.
 // It integrates tightly with the AudioPlayerContext to manage shared playback state across the app — including the track’s play/pause status, progress, and duration.

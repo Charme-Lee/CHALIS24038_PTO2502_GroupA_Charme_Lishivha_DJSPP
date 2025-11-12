@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/UI/Header";
 import Home from "./pages/Home.jsx";
-import ShowDetail from "./pages/ShowDetail.jsx";
+import ShowDetail from "./pages/ShowDetails.jsx";
 import { PodcastProvider } from "./context/PodcastContext.jsx";
 import { AudioPlayerProvider } from "./context/AudioPlayercontext.jsx";
 import AudioPlayerBar from "./components/UI/AudioPlayerBar.jsx";

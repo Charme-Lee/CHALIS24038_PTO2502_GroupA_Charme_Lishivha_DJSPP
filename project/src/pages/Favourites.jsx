@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { FavouritesContext } from "../context/FavouritesContext";
 import { Link } from "react-router-dom";
-import styles from "./Favourites.css";
+import styles from "./Favourites.module.css";
 import { formatDate } from "../utils/formatDate";
 
 /**

@@ -20,7 +20,7 @@ the main podcast library view in a user-friendly, adaptive layout.
 import { useContext } from "react";
 import PodcastCard from "./PodcastCard";
 import { PodcastContext } from "../../context/PodcastContext";
-import styles from "./PodcastGrid.css";
+import styles from "./PodcastGrid.module.css";
 
 /**
  * PodcastGrid component

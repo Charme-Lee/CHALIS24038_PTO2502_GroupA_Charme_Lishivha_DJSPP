@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { PodcastContext } from "../../context/PodcastContext";
-import styles from "./Paginatio.css";
+import styles from "./Pagination.module.css";
 
 /**
  * Numeric pagination bar.
