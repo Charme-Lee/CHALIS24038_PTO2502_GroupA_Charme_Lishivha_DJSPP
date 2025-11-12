@@ -19,7 +19,7 @@ export default function GenreTags({ genres }) {
     const match = genreMap.find((genre) => genre.id === id);
     return (
       <span key={id} className={styles.tag}>
-        {match ? match.title : `Unknown (${id})`}
+        {match ? match.title : `${id}`}
       </span>
     );
   });
