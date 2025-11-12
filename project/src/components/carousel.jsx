@@ -20,7 +20,7 @@ import React, { useContext } from "react";
 import { PodcastContext } from "../context/PodcastContext";
 import { Link } from "react-router-dom";
 import GenreTags from "./UI/GenreTags";
-import styles from "./RecommendedCarousel.module.css";
+import styles from "./carousel.css";
 
 /**
  * RecommendedCarousel Component

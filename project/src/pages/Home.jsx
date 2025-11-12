@@ -7,11 +7,11 @@ import {
   Loading,
   Error,
 } from "../components";
-import styles from "./Home.module.css";
+import styles from "./Home.css";
 import { genres } from "../data";
 import { PodcastContext } from "../context/PodcastContext";
 import { useContext } from "react";
-import RecommendedCarousel from "../components/RecommendedCarousel";
+import RecommendedCarousel from "../components/carousel";
 // The Home component is the main page of the Podcast Explorer app.
 // It connects to PodcastContext to retrieve the current podcast data, loading state, and any errors from API requests.
 // It renders interactive controls for search, genre filtering, and sorting, along with recommended podcasts, and conditionally displays either a loading spinner,
