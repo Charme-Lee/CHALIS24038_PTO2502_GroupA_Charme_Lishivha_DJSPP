@@ -6,7 +6,7 @@
  */
 
 import React, { createContext, useEffect, useState } from "react";
-import { fetchPodcasts } from "../api/fetchData";
+import { fetchPodcasts } from "../api/fetchdata";
 
 /**
  * @typedef {Object} Podcast

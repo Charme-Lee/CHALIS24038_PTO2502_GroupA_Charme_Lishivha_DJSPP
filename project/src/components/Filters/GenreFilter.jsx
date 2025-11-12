@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { PodcastContext } from "../../context/PodcastContext";
-import styles from "./GenreFilter.module.css";
+import styles from "./GenreFilter.css";
 /**This component renders a dropdown menu that lets the user select a podcast genre.
 It uses useContext to read and update the current genre state stored in PodcastContext, so when the user selects
  a different genre, it updates the global filter used elsewhere in the app. */

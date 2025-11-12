@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { PodcastContext } from "../../context/PodcastContext";
-import styles from "./SearchBar.module.css";
+import styles from "./SearchBar.css";
 
 /**
  * This component provides a search bar that lets users filter podcasts by name.

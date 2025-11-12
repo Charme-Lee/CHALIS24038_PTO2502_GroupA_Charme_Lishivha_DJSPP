@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { SORT_OPTIONS, PodcastContext } from "../../context/PodcastContext";
-import styles from "./SortSelect.module.css";
+import styles from "./SortSelect.css";
 
 /**
  *This component renders a sorting dropdown menu for podcasts.
