@@ -76,7 +76,7 @@ export default function PodcastCard({ podcast }) {
         src={podcast.image}
         alt={podcast.title}
         className={styles.image}
-        loading="lazy"
+        loading="eager"
       />
 
       {/* Podcast title */}

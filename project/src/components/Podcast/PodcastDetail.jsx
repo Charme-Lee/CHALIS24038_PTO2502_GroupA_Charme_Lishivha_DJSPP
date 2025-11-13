@@ -161,16 +161,13 @@ export default function PodcastDetail({ podcast, genres }) {
                 src={season.image}
                 alt={ep.title}
               />
-
               <div className={styles.episodeInfo}>
                 {/* Episode title */}
                 <p className={styles.episodeTitle}>
                   Episode {index + 1}: {ep.title}
                 </p>
-
                 {/* Episode description */}
                 <p className={styles.episodeDesc}>{ep.description}</p>
-
                 {/* Play button - triggers global audio player */}
                 <button
                   className={styles.playButton}
@@ -188,23 +185,28 @@ export default function PodcastDetail({ podcast, genres }) {
                 >
                   Play
                 </button>
-
                 {/* Favourite button - toggles favourite status */}
                 <button
                   className={styles.favButton}
-                  onClick={() =>
+                  onClick={() => {
+                    const id =
+                      ep.id ??
+                      `${podcast.id}-S${selectedSeasonIndex}-E${index}`;
+                    console.log("Episode data:", ep);
                     toggleFavourite({
+                      id, // ✅ key must match what FavouritesContext expects
                       title: ep.title,
                       show: podcast.title,
                       showId: podcast.id,
                       seasonIndex: selectedSeasonIndex,
-                      episodeId: ep.id,
-                    })
-                  }
+                    });
+                  }}
                   aria-label="Toggle favourite"
                 >
                   {isFavourite({
-                    id: ep.id,
+                    id:
+                      ep.id ??
+                      `${podcast.id}-S${selectedSeasonIndex}-E${index}`,
                     showId: podcast.id,
                   })
                     ? "❤️"

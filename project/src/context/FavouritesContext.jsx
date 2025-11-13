@@ -53,7 +53,26 @@ export function FavouritesProvider({ children }) {
 
   /**
    * Persist favourites to localStorage whenever the list changes.
+   *
+   *
    */
+
+  useEffect(() => {
+    const saved = localStorage.getItem("favourites");
+    if (saved) {
+      try {
+        const data = JSON.parse(saved);
+        // Remove any entries missing required fields
+        const valid = data.filter((f) => f.id && f.showId);
+        if (valid.length !== data.length) {
+          localStorage.setItem("favourites", JSON.stringify(valid));
+        }
+      } catch {
+        localStorage.removeItem("favourites");
+      }
+    }
+  }, []);
+
   useEffect(() => {
     localStorage.setItem("favourites", JSON.stringify(favourites));
   }, [favourites]);
@@ -70,7 +89,7 @@ export function FavouritesProvider({ children }) {
    */
   const toggleFavourite = (episode) => {
     const existing = favourites.find(
-      (fav) => fav.episodeId === episode.id && fav.showId === episode.showId
+      (fav) => fav.id === episode.id && fav.showId === episode.showId
     );
 
     if (existing) {
@@ -96,7 +115,7 @@ export function FavouritesProvider({ children }) {
    */
   const isFavourite = (episode) =>
     favourites.some(
-      (fav) => fav.episodeId === episode.id && fav.showId === episode.showId
+      (fav) => fav.id === episode.id && fav.showId === episode.showId
     );
 
   /**
