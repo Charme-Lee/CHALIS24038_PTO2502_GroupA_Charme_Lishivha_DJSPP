@@ -119,17 +119,38 @@ export const AudioPlayerProvider = ({ children }) => {
    *
    * @param {{src: string, title: string, show: string, episode: string, showId: number, seasonIndex: number, episodeId: number}} track - Track to play
    */
+  // const play = (track) => {
+  //   if (!track?.src) return;
+
+  //   // Load new track if it's different from the current one
+  //   if (currentTrack?.src !== track.src) {
+  //     audioRef.current.src = track.src;
+  //     setCurrentTrack(track);
+  //     setProgress(0);
+  //   }
+
+  //   audioRef.current.play();
+  //   setIsPlaying(true);
+  // };
+
   const play = (track) => {
     if (!track?.src) return;
 
-    // Load new track if it's different from the current one
+    const audio = audioRef.current;
+
+    // If the track is different, reset everything
     if (currentTrack?.src !== track.src) {
-      audioRef.current.src = track.src;
+      audio.src = track.src; // load the new audio
+      audio.currentTime = 0; // reset playback to start
       setCurrentTrack(track);
+      setProgress(0);
+    } else {
+      // If same track, also reset if you want (optional)
+      audio.currentTime = 0;
       setProgress(0);
     }
 
-    audioRef.current.play();
+    audio.play();
     setIsPlaying(true);
   };
 
