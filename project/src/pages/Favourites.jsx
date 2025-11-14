@@ -87,7 +87,7 @@ export default function Favourites() {
       ))}
 
       {/* Fallback message if no favourites exist */}
-      {favourites.length === 0 && <p>No favourites yet!</p>}
+      {favourites.length === 0 && <p>No favourite shows yet!</p>}
     </div>
   );
 }
