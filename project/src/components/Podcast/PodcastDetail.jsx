@@ -192,13 +192,25 @@ export default function PodcastDetail({ podcast, genres }) {
                     const id =
                       ep.id ??
                       `${podcast.id}-S${selectedSeasonIndex}-E${index}`;
-                    console.log("Episode data:", ep);
+
                     toggleFavourite({
-                      id, // ✅ key must match what FavouritesContext expects
-                      title: ep.title,
+                      id,
+
+                      // Show info
                       show: podcast.title,
                       showId: podcast.id,
-                      seasonIndex: selectedSeasonIndex,
+                      showImage: podcast.image,
+
+                      // Episode info
+                      title: ep.title,
+                      description: ep.description,
+                      audio: ep.file,
+                      image: season.image,
+
+                      season: selectedSeasonIndex + 1,
+                      number: index + 1,
+
+                      addedAt: new Date().toISOString(),
                     });
                   }}
                   aria-label="Toggle favourite"

@@ -1,92 +1,100 @@
 import React, { useContext } from "react";
 import { FavouritesContext } from "../context/FavouritesContext";
-import { Link } from "react-router-dom";
+import EpisodeCard from "../components/Podcast/EpisodeCard"; // Card component for episode UI
 import styles from "./Favourites.module.css";
-import { formatDate } from "../utils/formatDate";
 
-/**
- * @function Favourites
- * @description
- * A component that displays a list of the user's favourite podcast episodes,
- * grouped by their parent show. Users can also sort favourites by title or date.
- *
- * The data is managed through `FavouritesContext`, and each episode links back
- * to its show page.
- *
- * @returns {JSX.Element} A rendered list of favourite episodes organized by show.
- *
- * @example
- * <Favourites />
- *This component displays a user’s list of favourite podcast episodes, organized by the show they belong to.
-It uses FavouritesContext to access the list and a sorting function, 
-allowing the user to sort favourites alphabetically or by date. Each favourite episode links back to its show page, and 
-if there are none, it displays a friendly “No favourites yet!” message.
- *
- *
- */
 export default function Favourites() {
-  // Access favourites data and sorting function from global context
   const { favourites, sortFavourites } = useContext(FavouritesContext);
+  // DEBUG: inspect what's actually stored in favourites
+  console.log("Favourites from context:", favourites);
 
-  // Define available sorting options for the dropdown menu
-  const sortOptions = [
-    { key: "title-asc", label: "A → Z" },
-    { key: "title-desc", label: "Z → A" },
-    { key: "date-desc", label: "Newest" },
-    { key: "date-asc", label: "Oldest" },
-  ];
+  // Map episode object from favourites/context into structure EpisodeCard expects
+  // const mapEpisodeForCard = (ep) => ({
+  //   id: ep.id,
+  //   title: ep.title || "",
+  //   description: ep.description || "",
+  //   audio: ep.audio || ep.file || "",
+  //   season: ep.season || ep.seasonIndex || 1,
+  //   number: ep.number || ep.episode || 1,
 
-  /**
-   * Group favourites by the show title.
-   * This allows rendering favourites organized under their respective shows.
-   */
+  //   showId: ep.showId,
+  //   showTitle: ep.show,
+  //   showImage: ep.showImage || null,
+
+  //   addedAt: ep.addedAt || null, // ← 🔥 THIS FIXES THE DATE
+  // });
+
+  const mapEpisodeForCard = (ep) => ({
+    id: ep.id,
+    title: ep.title || "",
+    description: ep.description || "",
+    src:
+      ep.audio || ep.audioUrl || ep.file || ep.enclosure?.url || ep.url || "", // 👈 MUST BE src
+    season: ep.season || ep.seasonIndex || 1,
+    number: ep.number || ep.episode || 1,
+    showId: ep.showId,
+    showTitle: ep.show,
+    showImage: ep.showImage || null,
+    addedAt: ep.addedAt || null,
+  });
+
+  // Group favourites by show
+  // const groupedFavourites = favourites.reduce((acc, fav) => {
+  //   const showTitle = fav.show;
+  //   acc[showTitle] = acc[showTitle] || [];
+  //   acc[showTitle].push(fav);
+  //   return acc;
+  // }, {});
+
+  // Group favourites by show, using the mapped shape EpisodeCard expects
   const groupedFavourites = favourites.reduce((acc, fav) => {
-    const showTitle = fav.show;
-    // Create a new array for each show if it doesn't exist
+    const mapped = mapEpisodeForCard(fav);
+    const showTitle = mapped.showTitle || "Unknown Show";
+
     acc[showTitle] = acc[showTitle] || [];
-    acc[showTitle].push(fav);
+    acc[showTitle].push(mapped);
     return acc;
   }, {});
 
   return (
     <div className={styles.container}>
-      {/* Header and sort dropdown */}
+      {/* Header + Sort Dropdown */}
       <div className={styles.top}>
         <h1>Favourites</h1>
         <select
-          className={styles.sortSelect} // Styled dropdown
-          onChange={(e) => sortFavourites(e.target.value)} // Sort when option selected
-          defaultValue="date-desc" // Default sort: newest first
+          className={styles.sortSelect}
+          onChange={(e) => sortFavourites(e.target.value)}
+          defaultValue="date-desc"
         >
-          {sortOptions.map((option) => (
-            <option key={option.key} value={option.key}>
-              {option.label}
-            </option>
-          ))}
+          <option value="title-asc">A → Z</option>
+          <option value="title-desc">Z → A</option>
+          <option value="date-desc">Newest</option>
+          <option value="date-asc">Oldest</option>
         </select>
       </div>
 
-      {/* Render favourites grouped by show title */}
+      {/* Render favourites grouped by show */}
       {Object.entries(groupedFavourites).map(([showTitle, episodes]) => (
-        <div key={showTitle} className={styles.showGroup}>
-          <h2>{showTitle}</h2>
-          {episodes.map((episode) => (
-            <div key={episode.episodeId} className={styles.episode}>
-              {/* Link to the show page */}
-              <Link to={`/show/${episode.showId}`}>
-                <span>{episode.title}</span> (Season {episode.seasonIndex + 1})
-              </Link>
+        <section key={showTitle} className={styles.showGroup}>
+          <h2>
+            {showTitle} ({episodes.length} episode
+            {episodes.length > 1 ? "s" : ""})
+          </h2>
 
-              {/* Display formatted date episode was added */}
-              <span className={styles.addedDate}>
-                Added: {formatDate(episode.addedAt)}
-              </span>
-            </div>
-          ))}
-        </div>
+          <ul className={styles.episodeList}>
+            {episodes.map((ep) => (
+              <EpisodeCard
+                key={ep.id}
+                episode={ep} // ep is already mapped above
+                showTitle={ep.showTitle || ep.show}
+                showImage={ep.showImage}
+                hidePlayButton={false}
+              />
+            ))}
+          </ul>
+        </section>
       ))}
 
-      {/* Fallback message if no favourites exist */}
       {favourites.length === 0 && <p>No favourite shows yet!</p>}
     </div>
   );

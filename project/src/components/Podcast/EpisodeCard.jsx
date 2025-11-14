@@ -1,11 +1,10 @@
-import React, { useState } from "react";
-import { AudioPlayerProvider } from "../../context/AudioPlayercontext";
-import useFavorites from "../contexts/FavoritesContext";
-import formatDate from "../../utils/formatDate";
-import PlayButton from "./PlayButton";
+import React, { useState, useContext } from "react";
+import { AudioPlayerContext } from "../../context/AudioPlayercontext";
+import { FavouritesContext } from "../../context/FavouritesContext";
+import { formatDate } from "../../utils/formatDate";
+import AudioPlayer from "../UI/AudioPlayerBar";
 import styles from "./EpisodeCard.module.css";
 
-// Define a character limit for the description
 const DESCRIPTION_LIMIT = 120;
 
 export default function EpisodeCard({
@@ -14,86 +13,118 @@ export default function EpisodeCard({
   showImage,
   hidePlayButton = false,
 }) {
-  const { playEpisode } = useAudio();
-  const { toggleFavorite, isFavorited } = useFavorites();
+  const { play } = useContext(AudioPlayerContext);
+  const { toggleFavourite, isFavourite } = useContext(FavouritesContext);
 
-  // State to track if the description is expanded
   const [isExpanded, setIsExpanded] = useState(false);
 
-  // Check if the description needs a "read more" button
   const needsReadMore =
     episode.description && episode.description.length > DESCRIPTION_LIMIT;
 
-  // Determine the text to display
   const displayText =
     needsReadMore && !isExpanded
       ? `${episode.description.slice(0, DESCRIPTION_LIMIT)}...`
       : episode.description;
 
-  // Construct a stable unique ID for each episode
   const episodeId = episode.id || `${showTitle}-${episode.title}`;
-  const favorited = isFavorited(episodeId);
+
+  const favourited = isFavourite({
+    id: episodeId,
+    showId: episode.showId,
+  });
 
   const handleFavorite = () => {
-    toggleFavorite({
+    //   toggleFavourite({
+    //     id: episodeId,
+
+    //     // show info
+    //     show: showTitle,
+    //     showId: episode.showId,
+    //     showImage: showImage || episode.showImage || null,
+
+    //     // full episode info
+    //     title: episode.title,
+    //     description: episode.description,
+    //     audio: episode.audio || episode.file || null,
+
+    //     season: episode.season || episode.seasonIndex || 1,
+    //     number: episode.number || episode.episode || 1,
+
+    //     addedAt: new Date().toISOString(),
+    //   });
+    // };
+
+    toggleFavourite({
       id: episodeId,
+      show: showTitle,
+      showId: episode.showId,
+      showImage: showImage || episode.showImage || null,
+
       title: episode.title,
       description: episode.description,
-      audio: episode.audio,
-      showTitle,
-      showImage,
-      season: episode.season || episode.seasonNumber || 1,
-      number: episode.number || episode.episode || 0,
+      src:
+        episode.audio ||
+        episode.audioUrl ||
+        episode.file ||
+        episode.enclosure?.url ||
+        null, // 👈 MUST BE src
+
+      season: episode.season || episode.seasonIndex || 1,
+      number: episode.number || episode.episode || 1,
+      addedAt: new Date().toISOString(),
     });
   };
 
   return (
-    <li className="episode-card">
-      <div className="episode-content">
+    <li className={styles["episode-card"]}>
+      <div className={styles["episode-content"]}>
         <img
-          src={showImage || "/placeholder.jpg"}
+          src={episode.showImage || showImage || "/placeholder.jpg"}
           alt="cover"
-          className="episode-cover"
+          className={styles["episode-cover"]}
         />
 
-        <div className="episode-info">
+        <div className={styles["episode-info"]}>
           <h4>
-            {episode.title}{" "}
+            {episode.title}
             <button
               onClick={handleFavorite}
-              className={`fav-btn ${favorited ? "active" : ""}`}
-              title={favorited ? "Remove from favourites" : "Add to favourites"}
+              className={`fav-btn ${favourited ? "active" : ""}`}
             >
-              {favorited ? "❤️" : "🤍"}
+              {favourited ? "❤️" : "🤍"}
             </button>
           </h4>
 
-          <p className="muted">
+          <p className={styles.muted}>
             Season {episode.season || 1} • Episode {episode.number || 1}
           </p>
 
           {episode.description && (
-            <p className="description">
-              {displayText}
-              {needsReadMore && (
-                <button
-                  className="read-more"
-                  onClick={() => setIsExpanded(!isExpanded)}
-                >
-                  {isExpanded ? "Read less" : "Read more"}
-                </button>
-              )}
-            </p>
+            <p className={styles.description}>{displayText}</p>
           )}
 
           {episode.addedAt && (
-            <p className="added-date">Added on {formatDate(episode.addedAt)}</p>
+            <p className={styles["added-date"]}>
+              Added on {formatDate(episode.addedAt)}
+            </p>
           )}
         </div>
       </div>
+      <button
+        className={styles.playButton}
+        onClick={() =>
+          play({
+            src: episode.src, // IMPORTANT — must be src
+            title: episode.title,
+            show: showTitle,
+          })
+        }
+      >
+        ▶️ Play
+      </button>
 
       {!hidePlayButton && (
-        <PlayButton
+        <AudioPlayer
           episode={episode}
           showTitle={showTitle}
           showImage={showImage}

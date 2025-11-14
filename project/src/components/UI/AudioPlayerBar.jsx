@@ -23,7 +23,8 @@ import styles from "../UI/AudioPlayerBar.module.css";
  * <AudioPlayer />
  */
 export default function AudioPlayer() {
-  // Extract audio player state and controls from context
+  // Extract audio player state and controls from
+  // console.log("EPISODE RECEIVED BY PLAYER:", episode);
   const { currentTrack, isPlaying, progress, duration, play, pause, seek } =
     useContext(AudioPlayerContext);
 
