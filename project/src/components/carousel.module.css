@@ -1,7 +1,11 @@
 .carouselContainer {
   position: relative;
+  margin-top: 5px;
   padding: 20px;
   overflow: hidden;
+}
+h2 {
+  margin-bottom: 20px;
 }
 
 .carousel {

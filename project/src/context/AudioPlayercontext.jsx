@@ -133,25 +133,68 @@ export const AudioPlayerProvider = ({ children }) => {
   //   setIsPlaying(true);
   // };
 
+  // const play = (track) => {
+  //   if (!track?.src) return;
+
+  //   const audio = audioRef.current;
+
+  //   // If the track is different, reset everything
+  //   if (currentTrack?.src !== track.src) {
+  //     audio.src = track.src; // load the new audio
+  //     audio.currentTime = 0; // reset playback to start
+  //     setCurrentTrack(track);
+  //     setProgress(0);
+  //   } else {
+  //     // If same track, also reset if you want (optional)
+  //     audio.currentTime = 0;
+  //     setProgress(0);
+  //   }
+
+  //   audio.play();
+  //   setIsPlaying(true);
+  // };
+
+  // const play = (track) => {
+  //   if (!track?.src) return;
+
+  //   const audio = audioRef.current;
+
+  //   // Stop any current audio first
+  //   audio.pause();
+  //   audio.src = track.src;
+  //   audio.currentTime = 0;
+
+  //   setCurrentTrack(track);
+  //   setProgress(0);
+
+  //   audio.play();
+  //   setIsPlaying(true);
+  // };
   const play = (track) => {
     if (!track?.src) return;
 
     const audio = audioRef.current;
 
-    // If the track is different, reset everything
-    if (currentTrack?.src !== track.src) {
-      audio.src = track.src; // load the new audio
-      audio.currentTime = 0; // reset playback to start
+    // Case 1: Same track as current
+    if (currentTrack?.src === track.src) {
+      if (!isPlaying) {
+        // Resume from where we left off
+        audio.play();
+        setIsPlaying(true);
+      } else {
+        // Already playing, do nothing
+        return;
+      }
+    } else {
+      // Case 2: Different track
+      audio.pause(); // stop previous audio
+      audio.src = track.src; // load new audio
+      audio.currentTime = 0; // start from beginning
       setCurrentTrack(track);
       setProgress(0);
-    } else {
-      // If same track, also reset if you want (optional)
-      audio.currentTime = 0;
-      setProgress(0);
+      audio.play(); // start playing new track
+      setIsPlaying(true);
     }
-
-    audio.play();
-    setIsPlaying(true);
   };
 
   /**

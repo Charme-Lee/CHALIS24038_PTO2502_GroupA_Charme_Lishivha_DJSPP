@@ -50,7 +50,7 @@ export default function RecommendedCarousel() {
 
   return (
     <div className={styles.carouselContainer}>
-      <h2>Recommended Shows</h2>
+      <h2>🔥 Recommended For You</h2>
 
       {/* Left scroll button */}
       <button
