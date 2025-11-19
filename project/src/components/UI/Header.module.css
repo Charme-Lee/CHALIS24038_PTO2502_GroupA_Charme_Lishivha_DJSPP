@@ -18,9 +18,9 @@ body.light .appHeader {
 }
 
 .navLinks {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 2px;
-  text-decoration: underline gray 1px;
+  /* text-decoration: underline gray 1px; */
 }
 
 .appHeader a {
@@ -40,4 +40,16 @@ body.light .appHeader {
   color: inherit;
   font-size: 1.5em;
   cursor: pointer;
+}
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.headerImage {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
 }

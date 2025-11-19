@@ -21,12 +21,13 @@ export default function Header() {
           Home
         </Link>
         <Link to="/favourites" className={styles.favsLink}>
-          Favourites
+          ❤️
         </Link>
         {/* Theme toggle button */}
         <button onClick={toggleTheme} className={styles.themeToggle}>
           {theme === "dark" ? "🌞" : "🌚"}
         </button>
+        <img className={styles.headerImage} src="./public/image.png" />
       </nav>
     </header>
   );
