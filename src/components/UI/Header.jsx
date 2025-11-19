@@ -27,7 +27,7 @@ export default function Header() {
         <button onClick={toggleTheme} className={styles.themeToggle}>
           {theme === "dark" ? "🌞" : "🌚"}
         </button>
-        <img className={styles.headerImage} src="./public/image.png" />
+        <img className={styles.headerImage} src="./image.png" />
       </nav>
     </header>
   );
