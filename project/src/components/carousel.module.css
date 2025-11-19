@@ -37,11 +37,11 @@ h2 {
   border-radius: 8px;
 }
 
-.carouselItem h3 {
+/* .carouselItem h3 {
   margin: 10px 0;
   font-size: 1em;
   text-align: center;
-}
+} */
 
 .arrow {
   position: absolute;
@@ -78,4 +78,37 @@ h2 {
 .carouselItem {
   min-width: 200px;
   flex-shrink: 0;
+}
+
+/* .carouselItem h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-top: 8px;
+
+  
+  display: -webkit-box;
+  -webkit-line-clamp: 2; 
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  height: 2.6em; 
+} */
+
+.carouselTitle {
+  width: 100%;
+  text-align: center;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-top: 8px;
+  height: 2.6em;
 }

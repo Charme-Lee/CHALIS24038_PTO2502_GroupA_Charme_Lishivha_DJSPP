@@ -170,31 +170,48 @@ export const AudioPlayerProvider = ({ children }) => {
   //   audio.play();
   //   setIsPlaying(true);
   // };
+  // const play = (track) => {
+  //   if (!track?.src) return;
+
+  //   const audio = audioRef.current;
+
+  //   // Case 1: Same track as current
+  //   if (currentTrack?.src === track.src) {
+  //     if (!isPlaying) {
+  //       // Resume from where we left off
+  //       audio.play();
+  //       setIsPlaying(true);
+  //     } else {
+  //       // Already playing, do nothing
+  //       return;
+  //     }
+  //   } else {
+  //     // Case 2: Different track
+  //     audio.pause(); // stop previous audio
+  //     audio.src = track.src; // load new audio
+  //     audio.currentTime = 0; // start from beginning
+  //     setCurrentTrack(track);
+  //     setProgress(0);
+  //     audio.play(); // start playing new track
+  //     setIsPlaying(true);
+  //   }
+  // };
+
   const play = (track) => {
     if (!track?.src) return;
 
     const audio = audioRef.current;
 
-    // Case 1: Same track as current
-    if (currentTrack?.src === track.src) {
-      if (!isPlaying) {
-        // Resume from where we left off
-        audio.play();
-        setIsPlaying(true);
-      } else {
-        // Already playing, do nothing
-        return;
-      }
-    } else {
-      // Case 2: Different track
-      audio.pause(); // stop previous audio
-      audio.src = track.src; // load new audio
-      audio.currentTime = 0; // start from beginning
-      setCurrentTrack(track);
-      setProgress(0);
-      audio.play(); // start playing new track
-      setIsPlaying(true);
-    }
+    // Always reset and load new src
+    audio.pause();
+    audio.src = track.src;
+    audio.currentTime = 0;
+
+    setCurrentTrack(track);
+    setProgress(0);
+
+    audio.play();
+    setIsPlaying(true);
   };
 
   /**

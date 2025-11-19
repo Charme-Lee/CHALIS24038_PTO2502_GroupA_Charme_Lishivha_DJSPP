@@ -110,13 +110,32 @@ export default function EpisodeCard({
           )}
         </div>
       </div>
-      <button
+      {/* <button
         className={styles.playButton}
         onClick={() =>
           play({
             src: episode.src, // IMPORTANT — must be src
             title: episode.title,
             show: showTitle,
+          })
+        }
+      >
+        ▶️ Play
+      </button> */}
+      <button
+        className={styles.playButton}
+        onClick={() =>
+          play({
+            src:
+              episode.audio ||
+              episode.audioUrl ||
+              episode.file ||
+              episode.enclosure?.url ||
+              null,
+            title: episode.title,
+            show: showTitle,
+            showImage: episode.showImage || showImage || null,
+            id: episode.id,
           })
         }
       >

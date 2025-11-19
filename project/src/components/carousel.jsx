@@ -69,7 +69,7 @@ export default function RecommendedCarousel() {
             className={styles.carouselItem}
           >
             <img src={podcast.image} alt={podcast.title} />
-            <h3>{podcast.title}</h3>
+            <h3 className={styles.carouselTitle}>{podcast.title}</h3>
             <GenreTags genres={podcast.genres} />
           </Link>
         ))}
