@@ -21,14 +21,13 @@ export default function Header() {
           Home
         </Link>
         <Link to="/favourites" className={styles.favsLink}>
-          ❤️ Favourites
+          Favourites
         </Link>
+        {/* Theme toggle button */}
+        <button onClick={toggleTheme} className={styles.themeToggle}>
+          {theme === "dark" ? "🌞" : "🌚"}
+        </button>
       </nav>
-
-      {/* Theme toggle button */}
-      <button onClick={toggleTheme} className={styles.themeToggle}>
-        {theme === "dark" ? "🌞" : "🌚"}
-      </button>
     </header>
   );
 }

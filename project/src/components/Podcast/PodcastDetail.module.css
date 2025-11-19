@@ -22,7 +22,7 @@ strong {
 .backButton {
   background: none;
   border: none;
-  color: #333;
+  color: black;
   font-size: 1rem;
   cursor: pointer;
   margin-bottom: 1rem;
@@ -33,7 +33,18 @@ strong {
 }
 
 .backButton:hover {
-  color: #0070f3;
+  color: #87a3c2;
+}
+
+/* Dark mode default */
+body.dark .backButton {
+  color: #ffffff !important; /* white text */
+  background: none !important; /* remove blue background */
+}
+
+/* Dark mode hover */
+body.dark .backButton:hover {
+  color: #87a3c2 !important; /* bluish hover */
 }
 
 .cover {
@@ -256,11 +267,11 @@ body.light .container {
   transition: background-color 0.3s, color 0.3s;
 }
 
-body.dark .backButton,
+/* body.dark .backButton, */
 body.dark .playButton,
 body.dark .favButton {
-  background-color: #4a90e2 !important;
-  color: #fff !important;
+  background-color: #8da2b9 !important;
+  color: hsl(0, 0%, 100%) !important;
 }
 
 body.light .backButton,
@@ -305,4 +316,13 @@ body.light .favButton {
   border-radius: 4px;
   display: inline-block;
   font-size: 0.8rem;
+}
+
+:global(body.dark) .backButton {
+  color: #ffffff !important;
+  background: none !important;
+}
+
+:global(body.dark) .backButton:hover {
+  color: #87a3c2 !important;
 }

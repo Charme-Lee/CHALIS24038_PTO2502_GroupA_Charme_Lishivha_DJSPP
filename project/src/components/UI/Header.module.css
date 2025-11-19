@@ -17,6 +17,12 @@ body.light .appHeader {
   color: #333 !important;
 }
 
+.navLinks {
+  font-size: 14px;
+  font-weight: 2px;
+  text-decoration: underline gray 1px;
+}
+
 .appHeader a {
   color: inherit;
   text-decoration: none;
@@ -32,6 +38,6 @@ body.light .appHeader {
   background: none;
   border: none;
   color: inherit;
-  font-size: 1.2em;
+  font-size: 1.5em;
   cursor: pointer;
 }
