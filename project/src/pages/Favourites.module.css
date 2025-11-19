@@ -55,3 +55,10 @@
   border-radius: 0.75rem;
   font-size: 1rem;
 }
+
+.filtersRow {
+  display: flex;
+  gap: 16px; /* space between the two dropdowns */
+  align-items: center; /* vertically align if needed */
+  margin-top: 12px; /* optional extra spacing from top */
+}

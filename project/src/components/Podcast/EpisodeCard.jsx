@@ -16,11 +16,14 @@ export default function EpisodeCard({
   const { play } = useContext(AudioPlayerContext);
   const { toggleFavourite, isFavourite } = useContext(FavouritesContext);
 
+  // ⭐ NEW: Expand/collapse state
   const [isExpanded, setIsExpanded] = useState(false);
 
+  // ⭐ NEW: Determine if description needs Read More
   const needsReadMore =
     episode.description && episode.description.length > DESCRIPTION_LIMIT;
 
+  // ⭐ NEW: Display either truncated or full text
   const displayText =
     needsReadMore && !isExpanded
       ? `${episode.description.slice(0, DESCRIPTION_LIMIT)}...`
@@ -34,26 +37,6 @@ export default function EpisodeCard({
   });
 
   const handleFavorite = () => {
-    //   toggleFavourite({
-    //     id: episodeId,
-
-    //     // show info
-    //     show: showTitle,
-    //     showId: episode.showId,
-    //     showImage: showImage || episode.showImage || null,
-
-    //     // full episode info
-    //     title: episode.title,
-    //     description: episode.description,
-    //     audio: episode.audio || episode.file || null,
-
-    //     season: episode.season || episode.seasonIndex || 1,
-    //     number: episode.number || episode.episode || 1,
-
-    //     addedAt: new Date().toISOString(),
-    //   });
-    // };
-
     toggleFavourite({
       id: episodeId,
       show: showTitle,
@@ -67,7 +50,7 @@ export default function EpisodeCard({
         episode.audioUrl ||
         episode.file ||
         episode.enclosure?.url ||
-        null, // 👈 MUST BE src
+        null,
 
       season: episode.season || episode.seasonIndex || 1,
       number: episode.number || episode.episode || 1,
@@ -99,8 +82,20 @@ export default function EpisodeCard({
             Season {episode.season || 1} • Episode {episode.number || 1}
           </p>
 
+          {/* ⭐ UPDATED DESCRIPTION WITH READ MORE */}
           {episode.description && (
-            <p className={styles.description}>{displayText}</p>
+            <p className={styles.description}>
+              {displayText}
+
+              {needsReadMore && (
+                <button
+                  className={styles.readMore}
+                  onClick={() => setIsExpanded(!isExpanded)}
+                >
+                  {isExpanded ? "Read less" : "Read more"}
+                </button>
+              )}
+            </p>
           )}
 
           {episode.addedAt && (
@@ -110,23 +105,13 @@ export default function EpisodeCard({
           )}
         </div>
       </div>
-      {/* <button
-        className={styles.playButton}
-        onClick={() =>
-          play({
-            src: episode.src, // IMPORTANT — must be src
-            title: episode.title,
-            show: showTitle,
-          })
-        }
-      >
-        ▶️ Play
-      </button> */}
+
       <button
         className={styles.playButton}
         onClick={() =>
           play({
             src:
+              episode.src ||
               episode.audio ||
               episode.audioUrl ||
               episode.file ||

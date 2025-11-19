@@ -126,3 +126,17 @@
     align-self: center;
   }
 }
+
+.readMore {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 0.85rem;
+  cursor: pointer;
+  margin-left: 5px;
+  text-decoration: underline;
+}
+
+.readMore:hover {
+  color: var(--accent-color, #4a90e2);
+}
