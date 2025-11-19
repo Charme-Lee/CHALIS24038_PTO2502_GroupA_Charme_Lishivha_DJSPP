@@ -7,7 +7,13 @@ export default function Header() {
   const { theme, toggleTheme } = useContext(ThemeContext);
 
   return (
-    <header className={styles.appHeader}>
+    <header
+      className={styles.appHeader}
+      style={{
+        backgroundColor: theme === "dark" ? "#3a393bff" : "#f5f5f5",
+        color: theme === "dark" ? "#fff" : "#333",
+      }}
+    >
       {/* App title */}
       <div>
         <Link to="/" className={styles.logo}>
