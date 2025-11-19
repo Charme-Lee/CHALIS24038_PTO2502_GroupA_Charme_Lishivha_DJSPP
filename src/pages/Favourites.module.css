@@ -1,0 +1,64 @@
+.container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.sortSelect {
+  margin-bottom: 20px;
+  margin-top: 12px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  padding: 5px;
+}
+
+.showGroup {
+  margin-bottom: 20px;
+}
+
+.showGroup h2 {
+  margin-bottom: 10px;
+}
+
+.episode {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.episode a {
+  color: #4a90e2;
+  text-decoration: none;
+}
+
+.episode a:hover {
+  text-decoration: underline;
+}
+
+.addedDate {
+  color: #666;
+  font-size: 0.9em;
+}
+
+.select {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 0.75rem;
+  font-size: 1rem;
+}
+
+.filtersRow {
+  display: flex;
+  gap: 16px; /* space between the two dropdowns */
+  align-items: center; /* vertically align if needed */
+  margin-top: 12px; /* optional extra spacing from top */
+}
