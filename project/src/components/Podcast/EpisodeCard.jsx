@@ -12,18 +12,16 @@ export default function EpisodeCard({
   showTitle,
   showImage,
   hidePlayButton = false,
+  isFavouritesPage = true,
 }) {
   const { play } = useContext(AudioPlayerContext);
   const { toggleFavourite, isFavourite } = useContext(FavouritesContext);
 
-  // ⭐ NEW: Expand/collapse state
   const [isExpanded, setIsExpanded] = useState(false);
 
-  // ⭐ NEW: Determine if description needs Read More
   const needsReadMore =
     episode.description && episode.description.length > DESCRIPTION_LIMIT;
 
-  // ⭐ NEW: Display either truncated or full text
   const displayText =
     needsReadMore && !isExpanded
       ? `${episode.description.slice(0, DESCRIPTION_LIMIT)}...`
@@ -42,7 +40,6 @@ export default function EpisodeCard({
       show: showTitle,
       showId: episode.showId,
       showImage: showImage || episode.showImage || null,
-
       title: episode.title,
       description: episode.description,
       src:
@@ -51,7 +48,6 @@ export default function EpisodeCard({
         episode.file ||
         episode.enclosure?.url ||
         null,
-
       season: episode.season || episode.seasonIndex || 1,
       number: episode.number || episode.episode || 1,
       addedAt: new Date().toISOString(),
@@ -68,25 +64,51 @@ export default function EpisodeCard({
         />
 
         <div className={styles["episode-info"]}>
-          <h4>
-            {episode.title}
+          {/* Title only */}
+          <h4>{episode.title}</h4>
+
+          {/* ❤️ + ▶️ Play in the same row */}
+          <div className={styles.actionRow}>
             <button
               onClick={handleFavorite}
-              className={`fav-btn ${favourited ? "active" : ""}`}
+              className={`fav-btn ${favourited ? "active" : ""} ${
+                isFavouritesPage ? styles.favFavouritesPage : ""
+              }`}
             >
               {favourited ? "❤️" : "🤍"}
             </button>
-          </h4>
+
+            <button
+              className={`${styles.playButton} ${
+                isFavouritesPage ? styles.playFavouritesPage : ""
+              }`}
+              onClick={() =>
+                play({
+                  src:
+                    episode.src ||
+                    episode.audio ||
+                    episode.audioUrl ||
+                    episode.file ||
+                    episode.enclosure?.url ||
+                    null,
+                  title: episode.title,
+                  show: showTitle,
+                  showImage: episode.showImage || showImage || null,
+                  id: episode.id,
+                })
+              }
+            >
+              ▶️ Play
+            </button>
+          </div>
 
           <p className={styles.muted}>
             Season {episode.season || 1} • Episode {episode.number || 1}
           </p>
 
-          {/* ⭐ UPDATED DESCRIPTION WITH READ MORE */}
           {episode.description && (
             <p className={styles.description}>
               {displayText}
-
               {needsReadMore && (
                 <button
                   className={styles.readMore}
@@ -105,27 +127,6 @@ export default function EpisodeCard({
           )}
         </div>
       </div>
-
-      <button
-        className={styles.playButton}
-        onClick={() =>
-          play({
-            src:
-              episode.src ||
-              episode.audio ||
-              episode.audioUrl ||
-              episode.file ||
-              episode.enclosure?.url ||
-              null,
-            title: episode.title,
-            show: showTitle,
-            showImage: episode.showImage || showImage || null,
-            id: episode.id,
-          })
-        }
-      >
-        ▶️ Play
-      </button>
 
       {!hidePlayButton && (
         <AudioPlayer
