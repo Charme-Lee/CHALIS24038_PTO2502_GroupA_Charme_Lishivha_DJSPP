@@ -129,25 +129,79 @@ Update this table to reflect what you completed. -->
 
 ```
 
-src/
-│── components/
-│ ├── AudioPlayer/
-│ ├── Carousel/
-│ ├── PodcastCard/
-│ ├── ThemeToggle/
-│── context/
-│ ├── AudioContext.js
-│ ├── ThemeContext.js
-│ ├── FavouritesContext.js
-│── pages/
-│ ├── Home.jsx
-│ ├── ShowDetail.jsx
-│ ├── Favourites.jsx
-│── data/
-│── hooks/
-│── styles/
-│── App.jsx
-│── main.jsx
+project-root/
+├── node_modules/
+├── public/
+│   ├── image.png
+│   ├── Podcast-Favicon.svg
+│   ├── Preview_image.png
+│   └── vite.svg
+├── src/
+│   ├── api/
+│   ├── assets/
+│   │   ├── image.png
+│   │   └── react.svg
+│   ├── components/
+│   │   ├── Filters/
+│   │   │   ├── GenreFilter.jsx
+│   │   │   ├── GenreFilter.module.css
+│   │   │   ├── SearchBar.jsx
+│   │   │   ├── SearchBar.module.css
+│   │   │   ├── SortSelect.jsx
+│   │   │   ├── SortSelect.module.css
+│   │   │   └── index.js
+│   │   ├── Podcast/
+│   │   │   ├── EpisodeCard.jsx
+│   │   │   ├── EpisodeCard.module.css
+│   │   │   ├── PodcastCard.jsx
+│   │   │   ├── PodcastCard.module.css
+│   │   │   ├── PodcastDetail.jsx
+│   │   │   ├── PodcastDetail.module.css
+│   │   │   ├── PodcastGrid.jsx
+│   │   │   ├── PodcastGrid.module.css
+│   │   │   └── index.js
+│   │   ├── UI/
+│   │   │   ├── AudioPlayerBar.jsx
+│   │   │   ├── AudioPlayerBar.module.css
+│   │   │   ├── Error.jsx
+│   │   │   ├── GenreTags.jsx
+│   │   │   ├── GenreTags.module.css
+│   │   │   ├── Header.jsx
+│   │   │   ├── Header.module.css
+│   │   │   ├── Loading.jsx
+│   │   │   ├── Loading.module.css
+│   │   │   ├── Pagination.jsx
+│   │   │   ├── Pagination.module.css
+│   │   │   ├── Carousel.jsx
+│   │   │   ├── carousel.module.css
+│   │   │   └── index.js
+│   │   └── index.js
+│   ├── context/
+│   │   ├── AudioPlayerContext.jsx
+│   │   ├── FavouritesContext.jsx
+│   │   ├── PodcastContext.jsx
+│   │   └── ThemeContext.jsx
+│   ├── pages/
+│   │   ├── Favourites.jsx
+│   │   ├── Favourites.module.css
+│   │   ├── Home.jsx
+│   │   ├── Home.module.css
+│   │   ├── ShowDetails.jsx
+│   │   └── ShowDetails.module.css
+│   ├── utils/
+│   │   └── formatDate.js
+│   ├── App.jsx
+│   ├── data.js
+│   ├── index.css
+│   ├── main.jsx
+├── .gitignore
+├── .eslintrc.config.js
+├── index.html
+├── package-lock.json
+├── package.json
+├── README.md
+└── vite.config.js
+
 
 ```
 
