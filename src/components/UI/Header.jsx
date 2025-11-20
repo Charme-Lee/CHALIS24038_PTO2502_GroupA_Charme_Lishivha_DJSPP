@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
 import styles from "./Header.module.css";
+import headerImg from "../../assets/image.png";
 
 export default function Header() {
   const { theme, toggleTheme } = useContext(ThemeContext);
@@ -33,7 +34,11 @@ export default function Header() {
         <button onClick={toggleTheme} className={styles.themeToggle}>
           {theme === "dark" ? "🌞" : "🌚"}
         </button>
-        <img src="./image.png" className={styles.headerImage} />
+        <img
+          src={headerImg}
+          alt="Profile photo"
+          className={styles.headerImage}
+        />
       </nav>
     </header>
   );

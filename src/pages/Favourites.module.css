@@ -4,61 +4,108 @@
   margin: 0 auto;
 }
 
+/* Header row */
 .top {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  gap: 12px;
   margin-bottom: 20px;
 }
+
+/* Filters row */
+.filtersRow {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap; /* <-- THIS FIXES MOBILE OVERFLOW */
+  width: 100%;
+}
+
 .sortSelect {
-  margin-bottom: 20px;
-  margin-top: 12px;
+  flex: 1; /* <-- auto-fit on mobile */
+  min-width: 140px;
   padding: 0.5rem 0.75rem;
   border: 1px solid #ccc;
-  border-radius: 0.75rem;
+  border-radius: 0.5rem;
   font-size: 1rem;
-  padding: 5px;
 }
 
+/* Group of shows */
 .showGroup {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
-.showGroup h2 {
-  margin-bottom: 10px;
+/* Episode List */
+.episodeList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
+/* Episode Card Wrapper */
 .episode {
   display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  border-bottom: 1px solid #ccc;
+  flex-direction: row;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 15px;
 }
 
-.episode a {
-  color: #4a90e2;
-  text-decoration: none;
+/* IMAGE inside episode card */
+.episode img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  flex-shrink: 0;
 }
 
-.episode a:hover {
-  text-decoration: underline;
+/* TEXT section of episode */
+.episodeContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .addedDate {
   color: #666;
-  font-size: 0.9em;
+  font-size: 0.85rem;
 }
 
-.select {
-  padding: 0.5rem 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 0.75rem;
-  font-size: 1rem;
+/* ============================================
+   📱 RESPONSIVE FIXES
+============================================ */
+
+@media (max-width: 700px) {
+  .episode {
+    flex-direction: column; /* stack vertically */
+    align-items: center;
+    text-align: center;
+  }
+
+  .episode img {
+    width: 120px;
+    height: 120px;
+  }
+
+  .filtersRow {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .container {
+    padding: 10px;
+  }
 }
 
-.filtersRow {
-  display: flex;
-  gap: 16px; /* space between the two dropdowns */
-  align-items: center; /* vertically align if needed */
-  margin-top: 12px; /* optional extra spacing from top */
+@media (max-width: 450px) {
+  .sortSelect {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .episode img {
+    width: 80px;
+    height: 80px;
+  }
 }

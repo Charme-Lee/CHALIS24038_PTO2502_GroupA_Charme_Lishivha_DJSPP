@@ -5,7 +5,7 @@
   right: 0;
   background: #fff;
   border-top: 1px solid #ddd;
-  padding: 1rem;
+  padding: 0.75rem 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -13,18 +13,22 @@
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
 }
 
+/* Song info */
 .info {
   flex: 1;
-  font-size: 0.9rem;
-  color: #333333;
+  font-size: 0.95rem;
+  color: #333;
+  padding-right: 1rem;
 }
 
+/* Control buttons */
 .controls {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
 
+/* Play button */
 .playButton {
   padding: 0.5rem 1rem;
   background: #1a73e8;
@@ -39,12 +43,61 @@
   background: #1565c0;
 }
 
+/* Seek bar */
 .seekBar {
   width: 200px;
   accent-color: #1a73e8;
 }
 
+/* Time text */
 .time {
   font-size: 0.8rem;
   color: #555;
+}
+
+/* ======================================
+   📱 MOBILE RESPONSIVE
+====================================== */
+
+@media (max-width: 600px) {
+  .player {
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem;
+    gap: 0.6rem;
+    text-align: center;
+  }
+
+  .info {
+    font-size: 0.85rem;
+    padding: 0;
+  }
+
+  .controls {
+    gap: 0.6rem;
+  }
+
+  .playButton {
+    padding: 0.4rem 0.7rem;
+    font-size: 0.9rem;
+  }
+
+  .seekBar {
+    width: 150px;
+  }
+
+  .time {
+    font-size: 0.7rem;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 380px) {
+  .seekBar {
+    width: 120px;
+  }
+
+  .controls {
+    gap: 0.4rem;
+  }
 }
