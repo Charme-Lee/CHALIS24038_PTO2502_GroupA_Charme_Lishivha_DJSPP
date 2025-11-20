@@ -8,7 +8,7 @@
 }
 
 .appHeader .logo {
-  font-size: 18px;
+  font-size: 19px;
 }
 
 body.dark .appHeader {
@@ -25,18 +25,23 @@ body.light .appHeader {
 .navLinks {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
+}
+
+.appHeader .homeLink {
+  font-size: 16px;
+  padding-top: 8px;
 }
 
 /* Individual links */
 .appHeader a {
   color: inherit;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .favouritesLink {
-  font-size: 1rem;
+  font-size: 5rem;
 }
 
 /* Theme toggle button */
@@ -97,4 +102,8 @@ body.light .appHeader {
   .appHeader a {
     font-size: 0.9rem;
   }
+}
+
+.appHeader .favsLink {
+  font-size: 1.2rem;
 }
