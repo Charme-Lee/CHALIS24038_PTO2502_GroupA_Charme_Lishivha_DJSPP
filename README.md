@@ -6,7 +6,7 @@ Users can explore podcasts, view seasons and episodes, play audio with a persist
 
 ## 🌟 Live Demo
 
-✅ Live App [Vercel](https://podcastapp-three.vercel.app/)
+✅ Live App [Vercel](https://charmepodcast.vercel.app/)
 The app deploys automatically on push via Vercel and supports full SPA routing.
 
 ## 🚀 Features
