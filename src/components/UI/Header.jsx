@@ -11,7 +11,7 @@ export default function Header() {
     <header
       className={styles.appHeader}
       style={{
-        backgroundColor: theme === "dark" ? "#3a393bff" : "#f5f5f5",
+        backgroundColor: theme === "dark" ? "#504f51ff" : "#f5f5f5",
         color: theme === "dark" ? "#fff" : "#333",
       }}
     >
