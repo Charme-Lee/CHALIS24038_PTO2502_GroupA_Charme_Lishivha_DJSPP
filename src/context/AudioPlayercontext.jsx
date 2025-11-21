@@ -119,83 +119,6 @@ export const AudioPlayerProvider = ({ children }) => {
    *
    * @param {{src: string, title: string, show: string, episode: string, showId: number, seasonIndex: number, episodeId: number}} track - Track to play
    */
-  // const play = (track) => {
-  //   if (!track?.src) return;
-
-  //   // Load new track if it's different from the current one
-  //   if (currentTrack?.src !== track.src) {
-  //     audioRef.current.src = track.src;
-  //     setCurrentTrack(track);
-  //     setProgress(0);
-  //   }
-
-  //   audioRef.current.play();
-  //   setIsPlaying(true);
-  // };
-
-  // const play = (track) => {
-  //   if (!track?.src) return;
-
-  //   const audio = audioRef.current;
-
-  //   // If the track is different, reset everything
-  //   if (currentTrack?.src !== track.src) {
-  //     audio.src = track.src; // load the new audio
-  //     audio.currentTime = 0; // reset playback to start
-  //     setCurrentTrack(track);
-  //     setProgress(0);
-  //   } else {
-  //     // If same track, also reset if you want (optional)
-  //     audio.currentTime = 0;
-  //     setProgress(0);
-  //   }
-
-  //   audio.play();
-  //   setIsPlaying(true);
-  // };
-
-  // const play = (track) => {
-  //   if (!track?.src) return;
-
-  //   const audio = audioRef.current;
-
-  //   // Stop any current audio first
-  //   audio.pause();
-  //   audio.src = track.src;
-  //   audio.currentTime = 0;
-
-  //   setCurrentTrack(track);
-  //   setProgress(0);
-
-  //   audio.play();
-  //   setIsPlaying(true);
-  // };
-  // const play = (track) => {
-  //   if (!track?.src) return;
-
-  //   const audio = audioRef.current;
-
-  //   // Case 1: Same track as current
-  //   if (currentTrack?.src === track.src) {
-  //     if (!isPlaying) {
-  //       // Resume from where we left off
-  //       audio.play();
-  //       setIsPlaying(true);
-  //     } else {
-  //       // Already playing, do nothing
-  //       return;
-  //     }
-  //   } else {
-  //     // Case 2: Different track
-  //     audio.pause(); // stop previous audio
-  //     audio.src = track.src; // load new audio
-  //     audio.currentTime = 0; // start from beginning
-  //     setCurrentTrack(track);
-  //     setProgress(0);
-  //     audio.play(); // start playing new track
-  //     setIsPlaying(true);
-  //   }
-  // };
 
   const play = (track) => {
     if (!track?.src) return;
@@ -216,47 +139,6 @@ export const AudioPlayerProvider = ({ children }) => {
       setIsPlaying(true);
     }, 50); // 50ms delay allows the browser to register src change
   };
-
-  // const play = (track) => {
-  //   if (!track?.src) return;
-
-  //   const audio = audioRef.current;
-
-  //   // Case 1: Same track → resume
-  //   if (currentTrack?.src === track.src) {
-  //     audio.play();
-  //     setIsPlaying(true);
-  //     return;
-  //   }
-
-  //   // Case 2: New track → reset & start fresh
-  //   audio.pause();
-  //   audio.src = track.src;
-  //   audio.currentTime = 0;
-
-  //   setCurrentTrack(track);
-  //   setProgress(0);
-
-  //   audio.play();
-  //   setIsPlaying(true);
-  // };
-
-  // const play = (track) => {
-  //   if (!track?.src) return;
-
-  //   const audio = audioRef.current;
-
-  //   // Always reset and load new src
-  //   audio.pause();
-  //   audio.src = track.src;
-  //   audio.currentTime = 0;
-
-  //   setCurrentTrack(track);
-  //   setProgress(0);
-
-  //   audio.play();
-  //   setIsPlaying(true);
-  // };
 
   /**
    * Pauses the currently playing track.

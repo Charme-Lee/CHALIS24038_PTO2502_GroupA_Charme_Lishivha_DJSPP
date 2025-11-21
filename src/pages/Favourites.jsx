@@ -1,119 +1,34 @@
-// import React, { useContext } from "react";
-// import { FavouritesContext } from "../context/FavouritesContext";
-// import EpisodeCard from "../components/Podcast/EpisodeCard"; // Card component for episode UI
-// import styles from "./Favourites.module.css";
-
-// export default function Favourites() {
-//   const { favourites, sortFavourites } = useContext(FavouritesContext);
-//   // DEBUG: inspect what's actually stored in favourites
-//   console.log("Favourites from context:", favourites);
-
-//   // Map episode object from favourites/context into structure EpisodeCard expects
-//   // const mapEpisodeForCard = (ep) => ({
-//   //   id: ep.id,
-//   //   title: ep.title || "",
-//   //   description: ep.description || "",
-//   //   audio: ep.audio || ep.file || "",
-//   //   season: ep.season || ep.seasonIndex || 1,
-//   //   number: ep.number || ep.episode || 1,
-
-//   //   showId: ep.showId,
-//   //   showTitle: ep.show,
-//   //   showImage: ep.showImage || null,
-
-//   //   addedAt: ep.addedAt || null, // ← 🔥 THIS FIXES THE DATE
-//   // });
-
-//   const mapEpisodeForCard = (ep) => ({
-//     id: ep.id,
-//     title: ep.title || "",
-//     description: ep.description || "",
-//     src:
-//       ep.audio || ep.audioUrl || ep.file || ep.enclosure?.url || ep.url || "", // 👈 MUST BE src
-//     season: ep.season || ep.seasonIndex || 1,
-//     number: ep.number || ep.episode || 1,
-//     showId: ep.showId,
-//     showTitle: ep.show,
-//     showImage: ep.showImage || null,
-//     addedAt: ep.addedAt || null,
-//   });
-
-//   // Group favourites by show
-//   // const groupedFavourites = favourites.reduce((acc, fav) => {
-//   //   const showTitle = fav.show;
-//   //   acc[showTitle] = acc[showTitle] || [];
-//   //   acc[showTitle].push(fav);
-//   //   return acc;
-//   // }, {});
-
-//   // Group favourites by show, using the mapped shape EpisodeCard expects
-//   const groupedFavourites = favourites.reduce((acc, fav) => {
-//     const mapped = mapEpisodeForCard(fav);
-//     const showTitle = mapped.showTitle || "Unknown Show";
-
-//     acc[showTitle] = acc[showTitle] || [];
-//     acc[showTitle].push(mapped);
-//     return acc;
-//   }, {});
-
-//   return (
-//     <div className={styles.container}>
-//       {/* Header + Sort Dropdown */}
-//       <div className={styles.top}>
-//         <h1>Favourites</h1>
-//         <select
-//           className={styles.sortSelect}
-//           onChange={(e) => sortFavourites(e.target.value)}
-//           defaultValue="date-desc"
-//         >
-//           <option value="title-asc">A → Z</option>
-//           <option value="title-desc">Z → A</option>
-//           <option value="date-desc">Newest</option>
-//           <option value="date-asc">Oldest</option>
-//         </select>
-//       </div>
-
-//       {/* Render favourites grouped by show */}
-//       {Object.entries(groupedFavourites).map(([showTitle, episodes]) => (
-//         <section key={showTitle} className={styles.showGroup}>
-//           <h2>
-//             {showTitle} ({episodes.length} episode
-//             {episodes.length > 1 ? "s" : ""})
-//           </h2>
-
-//           <ul className={styles.episodeList}>
-//             {episodes.map((ep) => (
-//               <EpisodeCard
-//                 key={ep.id}
-//                 episode={ep} // ep is already mapped above
-//                 showTitle={ep.showTitle || ep.show}
-//                 showImage={ep.showImage}
-//                 hidePlayButton={false}
-//               />
-//             ))}
-//           </ul>
-//         </section>
-//       ))}
-
-//       {favourites.length === 0 && <p>No favourite shows yet!</p>}
-//     </div>
-//   );
-// }
 import React, { useContext, useState, useMemo } from "react";
 import { FavouritesContext } from "../context/FavouritesContext";
 import EpisodeCard from "../components/Podcast/EpisodeCard";
 import styles from "./Favourites.module.css";
 
+/**
+ * Favourites Component
+ * ---------------------
+ * Renders a user's favourited podcast episodes, grouped by show.
+ * Includes sorting and show-filtering options.
+ */
 export default function Favourites() {
+  // Extract favourites and sorting function from context
   const { favourites, sortFavourites } = useContext(FavouritesContext);
 
+  // Local state controlling which show group is displayed
   const [showFilter, setShowFilter] = useState("all");
 
-  // Map the favourites into the shape EpisodeCard expects
+  /**
+   * mapEpisodeForCard
+   * ------------------
+   * Normalizes a favourite episode object into the format expected by EpisodeCard.
+   *
+   * @param {Object} ep - Raw episode object from the favourites context.
+   * @returns {Object} Normalized episode data.
+   */
   const mapEpisodeForCard = (ep) => ({
     id: ep.id,
     title: ep.title || "",
     description: ep.description || "",
+    // Flexible mapping to handle different audio source field names
     src:
       ep.src || ep.audio || ep.audioUrl || ep.file || ep.enclosure?.url || "",
     season: ep.season || ep.seasonIndex || 1,
@@ -124,7 +39,14 @@ export default function Favourites() {
     addedAt: ep.addedAt || null,
   });
 
-  // Group favourites by show (already mapped)
+  /**
+   * groupedFavourites
+   * ------------------
+   * Memoized structure grouping favourites by show name.
+   * Mapping occurs first to ensure values match EpisodeCard expectations.
+   *
+   * @type {Object.<string, Array>} An object keyed by show title.
+   */
   const groupedFavourites = useMemo(() => {
     return favourites.reduce((acc, fav) => {
       const mapped = mapEpisodeForCard(fav);
@@ -137,10 +59,14 @@ export default function Favourites() {
     }, {});
   }, [favourites]);
 
-  // All show names
+  // List of all unique show titles
   const allShows = Object.keys(groupedFavourites);
 
-  // Apply show filter
+  /**
+   * filteredShowNames
+   * ------------------
+   * Determines which show groups should be rendered based on user filter.
+   */
   const filteredShowNames =
     showFilter === "all"
       ? allShows
@@ -148,7 +74,7 @@ export default function Favourites() {
 
   return (
     <div className={styles.container}>
-      {/* Header + Sort + Show Filter */}
+      {/* Header, Sorting, and Show Filtering Controls */}
       <div className={styles.top}>
         <h1>Favourites</h1>
 
@@ -165,7 +91,7 @@ export default function Favourites() {
             <option value="date-asc">Oldest</option>
           </select>
 
-          {/* NEW: Show Filter */}
+          {/* Show Filter Dropdown */}
           <select
             className={styles.sortSelect}
             value={showFilter}
@@ -181,7 +107,7 @@ export default function Favourites() {
         </div>
       </div>
 
-      {/* Render Groups */}
+      {/* Render Each Show Group */}
       {filteredShowNames.map((showTitle) => (
         <section key={showTitle} className={styles.showGroup}>
           <h2>
@@ -203,6 +129,7 @@ export default function Favourites() {
         </section>
       ))}
 
+      {/* Empty State Message */}
       {favourites.length === 0 && <p>No favourite shows yet!</p>}
     </div>
   );

@@ -57,22 +57,6 @@ export function FavouritesProvider({ children }) {
    *
    */
 
-  // useEffect(() => {
-  //   const saved = localStorage.getItem("favourites");
-  //   if (saved) {
-  //     try {
-  //       const data = JSON.parse(saved);
-  //       // Remove any entries missing required fields
-  //       const valid = data.filter((f) => f.id && f.showId);
-  //       if (valid.length !== data.length) {
-  //         localStorage.setItem("favourites", JSON.stringify(valid));
-  //       }
-  //     } catch {
-  //       localStorage.removeItem("favourites");
-  //     }
-  //   }
-  // }, []);
-
   useEffect(() => {
     const saved = localStorage.getItem("favourites");
     if (saved) {
