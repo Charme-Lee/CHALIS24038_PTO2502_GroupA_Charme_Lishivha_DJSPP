@@ -77,8 +77,35 @@ export default function EpisodeCard({
             >
               {favourited ? "❤️" : "🤍"}
             </button>
-
             <button
+              className={`${styles.playButton} ${
+                isFavouritesPage ? styles.playFavouritesPage : ""
+              }`}
+              onClick={() => {
+                const track = {
+                  src:
+                    episode.src ||
+                    episode.audio ||
+                    episode.audioUrl ||
+                    episode.file ||
+                    episode.enclosure?.url ||
+                    null,
+                  title: episode.title,
+                  show: showTitle,
+                  showImage: episode.showImage || showImage || null,
+                  showId: episode.showId || showTitle,
+                  seasonIndex: episode.season || 1,
+                  episodeId: episode.id || `${showTitle}-${episode.title}`,
+                };
+
+                console.log("TRACK SENT TO PLAY():", track);
+                play(track);
+              }}
+            >
+              ▶️ Play
+            </button>
+
+            {/* <button
               className={`${styles.playButton} ${
                 isFavouritesPage ? styles.playFavouritesPage : ""
               }`}
@@ -99,7 +126,7 @@ export default function EpisodeCard({
               }
             >
               ▶️ Play
-            </button>
+            </button> */}
           </div>
 
           <p className={styles.muted}>
@@ -127,14 +154,15 @@ export default function EpisodeCard({
           )}
         </div>
       </div>
+      {/* <AudioPlayerBar /> */}
 
-      {!hidePlayButton && (
+      {/* {!hidePlayButton && (
         <AudioPlayer
           episode={episode}
           showTitle={showTitle}
           showImage={showImage}
         />
-      )}
+      )} */}
     </li>
   );
 }

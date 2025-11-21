@@ -202,21 +202,65 @@ export const AudioPlayerProvider = ({ children }) => {
 
     const audio = audioRef.current;
 
-    // Always reset and load new src
     audio.pause();
-    audio.src = track.src;
-    audio.currentTime = 0;
 
-    setCurrentTrack(track);
-    setProgress(0);
+    // Force reload even if src is the same
+    audio.src = "";
+    setTimeout(() => {
+      audio.src = track.src;
+      audio.currentTime = 0;
+      setCurrentTrack(track);
+      setProgress(0);
 
-    audio.play();
-    setIsPlaying(true);
+      audio.play().catch(console.error);
+      setIsPlaying(true);
+    }, 50); // 50ms delay allows the browser to register src change
   };
+
+  // const play = (track) => {
+  //   if (!track?.src) return;
+
+  //   const audio = audioRef.current;
+
+  //   // Case 1: Same track → resume
+  //   if (currentTrack?.src === track.src) {
+  //     audio.play();
+  //     setIsPlaying(true);
+  //     return;
+  //   }
+
+  //   // Case 2: New track → reset & start fresh
+  //   audio.pause();
+  //   audio.src = track.src;
+  //   audio.currentTime = 0;
+
+  //   setCurrentTrack(track);
+  //   setProgress(0);
+
+  //   audio.play();
+  //   setIsPlaying(true);
+  // };
+
+  // const play = (track) => {
+  //   if (!track?.src) return;
+
+  //   const audio = audioRef.current;
+
+  //   // Always reset and load new src
+  //   audio.pause();
+  //   audio.src = track.src;
+  //   audio.currentTime = 0;
+
+  //   setCurrentTrack(track);
+  //   setProgress(0);
+
+  //   audio.play();
+  //   setIsPlaying(true);
+  // };
 
   /**
    * Pauses the currently playing track.
-   */
+  //  */
   const pause = () => {
     audioRef.current.pause();
     setIsPlaying(false);
