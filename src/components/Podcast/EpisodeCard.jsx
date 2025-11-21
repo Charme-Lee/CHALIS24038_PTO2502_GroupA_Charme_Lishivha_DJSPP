@@ -172,7 +172,7 @@ export default function EpisodeCard({
       </div>
 
       {/* Inline audio player for quick playback */}
-      <AudioPlayerBar />
+      {/* <AudioPlayerBar /> */}
     </li>
   );
 }
